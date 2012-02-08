@@ -11,7 +11,7 @@ println 'Joining #ep-dev'
 
 def token = new File('token.txt').text
 def users = [:]
-int id = getLatestMessageId();
+int id = getLatestMessageId(token);
 while(true) {
     try {
         def responseAsText = new URL("https://www.yammer.com/api/v1/messages.json?newer_than=${id}&access_token=${token}").text
@@ -32,7 +32,7 @@ while(true) {
     } 
 }
 
-def getLatestMessageId() {
+def getLatestMessageId(String token) {
     def responseAsText = new URL("https://www.yammer.com/api/v1/messages.json?access_token=${token}").text
     def response = new JsonSlurper().parseText(responseAsText)
     return response.messages[0].id
