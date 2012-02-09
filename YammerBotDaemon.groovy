@@ -4,15 +4,14 @@ YammerBot bot = new YammerBot()
 bot.setVerbose(true)
 bot.setEncoding("utf-8")
 print 'Connecting to irc1.inet.fi ...'
-//bot.connect("irc1.inet.fi")
+bot.connect("irc1.inet.fi")
 println ' connected'
-//bot.joinChannel("#ep-dev")
+bot.joinChannel("#ep-dev")
 println 'Joining #ep-dev'
 
 def token = new File('token.txt').text
 def users = [:]
-//int id = getLatestMessageId(token);
-int id = 148068991;
+int id = getLatestMessageId(token);
 while(true) {
     try {
         def responseAsText = new URL("https://www.yammer.com/api/v1/messages.json?newer_than=${id}&access_token=${token}").text
@@ -22,7 +21,7 @@ while(true) {
             id = response.messages[0].id
             response.messages.reverse().each { message ->
                 def name = getUser(message.sender_id, users).full_name
-                bot.relayMessage(name, message.body.plain)
+                bot.relayMessage(name, message.body.plain, message.web_url)
             }
         } else {
             bot.log('No new yammer messages')
