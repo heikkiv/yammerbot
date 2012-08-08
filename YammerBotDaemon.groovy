@@ -20,7 +20,7 @@ while(true) {
             bot.log("${response.messages.size()} new yammer messages")
             id = response.messages[0].id
             response.messages.reverse().each { message ->
-                def name = getUser(message.sender_id, users).full_name
+                def name = getUser(message.sender_id, users, token).full_name
                 bot.relayMessage(name, message.body.plain, message.web_url)
             }
         } else {
@@ -38,18 +38,18 @@ def getLatestMessageId(String token) {
     return response.messages[0].id
 }
 
-def getUser(int id, users) {
+def getUser(int id, def users, String token) {
     if(users[id]) {
         return users[id]
     } else {
-        def user = loadUser(id)
+        def user = loadUser(id, token)
         users[id] = user
         return user
     }
 }
 
-def loadUser(int id) {
-    def rsp = new URL("https://www.yammer.com/api/v1/users/${id}.json?access_token=MfIXH1kmM7htvLYvRt7uQ").text
+def loadUser(int id, String token) {
+    def rsp = new URL("https://www.yammer.com/api/v1/users/${id}.json?access_token=${token}").text
     def slurper = new JsonSlurper()
     return slurper.parseText(rsp)
 }
