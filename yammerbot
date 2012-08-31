@@ -1,2 +1,3 @@
 #!/bin/sh
-groovy -cp lib/pircbot.jar YammerBotDaemon.groovy TOKEN=LVBq2As3giL8Ht8KfBG6Lg
+mvn package
+java -cp target/classes:target/dependency/* YammerBotDaemon
