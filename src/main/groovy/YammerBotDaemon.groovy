@@ -4,11 +4,12 @@ YammerBot bot = new YammerBot()
 bot.setVerbose(true)
 bot.setEncoding("utf-8")
 def server = (System.getenv('IRC_SERVER')) ? System.getenv('IRC_SERVER') : 'irc.atw-inter.net'
+def channel = (System.getenv('IRC_CHANNEL')) ? System.getenv('IRC_CHANNEL') : '#ep-dev'
 print "Connecting to ${server} ..."
 bot.connect(server)
 println ' connected'
-bot.joinChannel("#ep-dev")
-println 'Joining #ep-dev'
+bot.joinChannel(channel)
+println 'Joining ${channel}'
 
 def token = (System.getenv('TOKEN')) ? System.getenv('TOKEN') : new File('token.txt').text
 def users = [:]
