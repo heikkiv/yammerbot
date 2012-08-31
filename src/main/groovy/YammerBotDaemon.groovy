@@ -3,13 +3,14 @@ import groovy.json.JsonSlurper
 YammerBot bot = new YammerBot()
 bot.setVerbose(true)
 bot.setEncoding("utf-8")
-print 'Connecting to irc1.inet.fi ...'
-bot.connect("irc1.inet.fi")
+def server = (System.getenv('IRC_SERVER')) ? System.getenv('IRC_SERVER') : 'irc.atw-inter.net'
+print "Connecting to ${server} ..."
+bot.connect(server)
 println ' connected'
 bot.joinChannel("#ep-dev")
 println 'Joining #ep-dev'
 
-def token = new File('token.txt').text
+def token = (System.getenv('TOKEN')) ? System.getenv('TOKEN') : new File('token.txt').text
 def users = [:]
 int id = getLatestMessageId(token);
 while(true) {

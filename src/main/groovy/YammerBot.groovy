@@ -5,7 +5,7 @@ public class YammerBot extends PircBot {
     public YammerBot() {
         this.setName('YammerBot')
         this.setLogin('YammerBot')
-        this.setVersion('YammerBot 0.0.2')
+        this.setVersion('YammerBot 0.0.3')
         this.setAutoNickChange(true)
     }
     
