@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* YammerBotDaemon
+worker:    java -cp target/classes:target/dependency/* YammerBotDaemon
