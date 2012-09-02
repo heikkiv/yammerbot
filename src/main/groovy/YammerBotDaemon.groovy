@@ -1,10 +1,11 @@
 import groovy.json.JsonSlurper
 
-YammerBot bot = new YammerBot()
-bot.setVerbose(true)
-bot.setEncoding("utf-8")
 def server = (System.getenv('IRC_SERVER')) ? System.getenv('IRC_SERVER') : 'irc.atw-inter.net'
 def channel = (System.getenv('IRC_CHANNEL')) ? System.getenv('IRC_CHANNEL') : '#ep-dev'
+
+YammerBot bot = new YammerBot(channel)
+bot.setVerbose(true)
+bot.setEncoding("utf-8")
 print "Connecting to ${server} ..."
 bot.connect(server)
 println ' connected'

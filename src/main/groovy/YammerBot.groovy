@@ -2,7 +2,10 @@ import org.jibble.pircbot.*
 
 public class YammerBot extends PircBot {
     
-    public YammerBot() {
+	private String channel = ''
+	
+    public YammerBot(String channel) {
+		this.channel = channel
         this.setName('YammerBot')
         this.setLogin('YammerBot')
         this.setVersion('YammerBot 0.0.3')
@@ -22,5 +25,19 @@ public class YammerBot extends PircBot {
         def shortUrl = new URL("http://is.gd/create.php?format=simple&url=${url}").text
         return shortUrl
     }
+	
+	public void onDisconnect() {
+		println "Disconnected from irc server"
+		while (!isConnected()) {
+		    try {
+				println "Trying to reconnect"
+		        reconnect();
+				joinChannel(channel);
+		    }
+		    catch (Exception e) {
+		        sleep(60000)
+		    }
+		}
+	}
     
 }
