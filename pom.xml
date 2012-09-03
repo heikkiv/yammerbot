@@ -17,7 +17,24 @@
         	<artifactId>pircbot</artifactId>
         	<version>1.5.0</version>
         </dependency>
+		<dependency>
+		    <groupId>com.treasure_data</groupId>
+		    <artifactId>td-logger</artifactId>
+		    <version>0.1.3</version>
+		</dependency>
     </dependencies>
+	<repositories>
+	  <repository>
+	    <id>treasure-data.com</id>
+	    <name>Treasure Data's Maven2 Repository</name>
+	    <url>http://maven.treasure-data.com/</url>
+	  </repository>
+	  <repository>
+	    <id>fluentd.org</id>
+	    <name>Fluentd's Maven2 Repository</name>
+	    <url>http://fluentd.org/maven2</url>
+	  </repository>
+	</repositories>
     <build>
         <plugins>
             <plugin>
