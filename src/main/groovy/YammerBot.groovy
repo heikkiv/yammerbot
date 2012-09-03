@@ -41,7 +41,7 @@ public class YammerBot extends PircBot {
 	}
 	
 	public void onMessage(String channel, String sender, String login, String hostname, String message) {
-		def data = []
+		def data = [:]
 		data.put('channel', channel)
 		data.put('sender', sender)
 		data.put('login', login)
