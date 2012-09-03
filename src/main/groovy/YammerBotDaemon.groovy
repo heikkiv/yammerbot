@@ -10,7 +10,7 @@ print "Connecting to ${server} ..."
 bot.connect(server)
 println ' connected'
 bot.joinChannel(channel)
-println 'Joining ${channel}'
+println "Joining ${channel}"
 
 def token = (System.getenv('TOKEN')) ? System.getenv('TOKEN') : new File('token.txt').text
 def users = [:]
