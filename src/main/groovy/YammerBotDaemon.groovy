@@ -12,7 +12,7 @@ println ' connected'
 bot.joinChannel(channel)
 println 'Joining ${channel}'
 
-def token = (System.getenv('TOKEN')) ? System.getenv('TOKEN') : new File('token.txt').text
+def token = (System.getenv('TOKEN')) ? System.getenv('TOKEN') : ''
 def users = [:]
 int id = getLatestMessageId(token);
 while(true) {
