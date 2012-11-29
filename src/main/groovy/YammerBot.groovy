@@ -2,7 +2,7 @@ import org.jibble.pircbot.*
 
 public class YammerBot extends PircBot {
     
-	private String channel = ''
+    private String channel = ''
 	
     public YammerBot(String channel) {
 		this.channel = channel
@@ -18,7 +18,8 @@ public class YammerBot extends PircBot {
             message = message.substring(0, 300) + '... ' + shortenUrl(url)
         }
         this.log("Relaying: ${message}")
-        this.sendMessage('#ep-dev', message)
+        this.sendMessage(channel, message)
+        this.onMessage(channel, 'YammerBot', '', '', message)
     }
     
     def shortenUrl(String url) {
