@@ -45,7 +45,7 @@ while(true) {
 def getLatestMessageId(String token) {
     def responseAsText = new URL("https://www.yammer.com/api/v1/messages.json?access_token=${token}").text
     def response = new JsonSlurper().parseText(responseAsText)
-    return response.messages[1].id
+    return response.messages[0].id
 }
 
 def getUser(int id, def users, String token) {
