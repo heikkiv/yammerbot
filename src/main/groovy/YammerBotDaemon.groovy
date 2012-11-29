@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+import org.apache.commons.lang.StringEscapeUtils
 
 def server = (System.getenv('IRC_SERVER')) ? System.getenv('IRC_SERVER') : 'irc.atw-inter.net'
 def channel = (System.getenv('IRC_CHANNEL')) ? System.getenv('IRC_CHANNEL') : '#ep-dev'
@@ -24,7 +25,13 @@ while(true) {
             id = response.messages[0].id
             response.messages.reverse().each { message ->
                 def name = getUser(message.sender_id, users, token).full_name
-                bot.relayMessage(name, message.body.plain, message.web_url)
+				def text = message.body.plain
+				if(message.replied_to_id) {
+					def opUrl = 'https://www.yammer.com/applifier.com/messages/' + message.replied_to_id
+					def shortUrl = shortenUrl(opUrl)
+					text += " (Reply to ${shortUrl})" 
+				}
+                bot.relayMessage(name, text, message.web_url)
             }
         } else {
             bot.log('No new yammer messages')
@@ -38,7 +45,7 @@ while(true) {
 def getLatestMessageId(String token) {
     def responseAsText = new URL("https://www.yammer.com/api/v1/messages.json?access_token=${token}").text
     def response = new JsonSlurper().parseText(responseAsText)
-    return response.messages[0].id
+    return response.messages[1].id
 }
 
 def getUser(int id, def users, String token) {
@@ -55,4 +62,13 @@ def loadUser(int id, String token) {
     def rsp = new URL("https://www.yammer.com/api/v1/users/${id}.json?access_token=${token}").text
     def slurper = new JsonSlurper()
     return slurper.parseText(rsp)
+}
+
+def shortenUrl(String longUrl) {
+	try {
+		return new URL("http://is.gd/api.php?longurl=${StringEscapeUtils.escapeHtml(longUrl)}").text 
+	} catch(Exception e) {
+		println e.message 
+		return longUrl
+	}
 }
