@@ -48,7 +48,6 @@ public class YammerBot extends PircBot {
 		data.put('login', login)
 		data.put('hostname', hostname)
 		data.put('message', message)
-		TdLogger.log(data)
 	}
     
 }
